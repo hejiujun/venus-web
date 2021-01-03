@@ -1,0 +1,19 @@
+######################################################################
+# Build Tools
+.DS_Store
+target/
+######################################################################
+# IDE
+
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+

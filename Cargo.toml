@@ -1,0 +1,32 @@
+[package]
+name = "venus-web"
+version = "0.1.0"
+authors = ["何九军 <3415167085@qq.com>"]
+edition = "2018"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+#web server
+actix-http = "2"
+actix-web = "3"
+actix-session = "0.4"
+actix-files = "0.5"
+#templating language
+handlebars = { version = "3.0.0", features = ["dir_source"] }
+# json
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+# Date time
+chrono = { version = "0.4", features = ["serde"] }
+time = "0.2"
+# logging
+log = "0.4"
+fast_log = "1.3"
+# rbatis, must maintain the same versions
+rbatis = { version = "1.8" }
+rbatis-macro-driver = { version = "1.8" }
+
+lazy_static = "1.4.0"
+
+rust-argon2 = "0.8"

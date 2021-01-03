@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title </title>
+</head>
+<body>
+<script src="/static/js/jquery.min.js"></script>
+<script type="text/javascript">
+
+    function queryUser(){
+        var userPage={
+            page: 1,
+            size: 10,
+            login_name: "admin"
+        }
+        var jsondata=JSON.stringify(userPage);
+        console.log(jsondata);
+        var edit_form = $("#edit_form");
+        $.ajax({
+            type:"POST",
+            url:"/user",
+           // dataType: "json",
+            //data:{},
+            //dataType:"json",
+            //contentType: "application/x-www-form-urlencoded",
+            data: jsondata,
+            //data: edit_form.serializeArray(),
+            headers: {"content-type": "application/json"},
+            success:function(data){
+                console.log(data);
+            },
+            error: function(e){
+                console.error(e);
+            }
+
+        });
+    }
+</script>
+<button onclick="queryUser()">点击查询用户</button>
+<div>{{data}}</div>
+<form id="edit_form">
+    <input type="hidden" value="1" name="page" />
+    <input type="hidden" value="10" name="size" />
+    <input type="hidden" value="admin" name="login_name" />
+</form>
+</body>
+</html>
