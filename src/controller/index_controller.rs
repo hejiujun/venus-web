@@ -16,7 +16,7 @@ pub async fn index(hb: web::Data<Handlebars<'_>>, session: Session) -> HttpRespo
     let data = json!({
         "name": "Handlebars"
     });
-    let body = hb.render("user", &data).unwrap();
+    let body = hb.render("index", &data).unwrap();
 
     return HttpResponse::Ok().body(body);
 }

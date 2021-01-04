@@ -1,44 +1,51 @@
 
-$(function() {
+/*$(function() {
     validateKickout();
     validateRule();
     $('.imgcode').click(function() {
         var url = ctx + "captcha/captchaImage?type=" + captchaType + "&s=" + Math.random();
         $(".imgcode").attr("src", url);
     });
-});
+});*/
 
-$.validator.setDefaults({
+/*$.validator.setDefaults({
     submitHandler: function() {
         login();
     }
-});
+});*/
 
 function login() {
-    $.modal.loading($("#btnSubmit").data("loading"));
+   // $.modal.loading($("#btnSubmit").data("loading"));
     var username = $.common.trim($("input[name='username']").val());
     var password = $.common.trim($("input[name='password']").val());
-    var validateCode = $("input[name='validateCode']").val();
-    var rememberMe = $("input[name='rememberme']").is(':checked');
+   /* var validateCode = $("input[name='validateCode']").val();
+    var rememberMe = $("input[name='rememberme']").is(':checked');*/
+    var loginUser={
+        login_name:username,
+        password:password
+    }
     $.ajax({
         type: "post",
-        url: ctx + "login",
-        data: {
-            "username": username,
-            "password": password,
-            "validateCode": validateCode,
-            "rememberMe": rememberMe
-        },
+        url: "/login",
+        data: JSON.stringify(loginUser)/*{
+            "login_name": username,
+            "password": password,*/
+            /*"validateCode": validateCode,
+            "rememberMe": rememberMe*/
+       /* }*/,
         success: function(r) {
-            if (r.code == web_status.SUCCESS) {
+            /*if (r.code == web_status.SUCCESS) {
                 location.href = ctx + 'index';
             } else {
             	$.modal.closeLoading();
             	$('.imgcode').click();
             	$(".code").val("");
             	$.modal.msg(r.msg);
-            }
+            }*/
+            console.log(r);
         }
+
+
     });
 }
 

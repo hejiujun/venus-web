@@ -22,8 +22,8 @@ pub async fn login_html(hb: web::Data<Handlebars<'_>>) -> HttpResponse {
 }
 
 /// 用户登录
-#[post("/login")]
-pub async fn login(session: Session, arg: web::Json<LoginUser>) -> HttpResponse {
+#[post("/login_in")]
+pub async fn login_in(session:Session, arg: web::Json<LoginUser>) -> HttpResponse {
     //如果session中记录的有锁定时间
     if let Ok(locked_time) = session.get::<usize>("locked_time") {
         if let Some(n) = locked_time {
@@ -51,19 +51,21 @@ pub async fn login(session: Session, arg: web::Json<LoginUser>) -> HttpResponse 
     } //设置登录失败次数的默认值
 
     let user = user_service::find_by_login_name(&arg.login_name.as_ref().unwrap()).await;
-    if let Ok(matching) = utils::verify(&user.clone().unwrap().unwrap().password.unwrap(), &arg.password.as_ref().unwrap()) {
+    let m = utils::verify(&user.clone().unwrap().unwrap().password.unwrap(), &arg.password.as_ref().unwrap());
+    return if m {
         session.remove("failure_count"); //清空失败次数
         session.remove("locked_time"); //清空锁定时间
         session.set::<String>("user_id", user.clone().unwrap().unwrap().user_id.unwrap()).unwrap(); //session
         session.set::<String>("user_name", user.clone().unwrap().unwrap().login_name.unwrap()).unwrap(); //session
         //session.set::<String>("role_id", role_id).unwrap(); //session
-        return RespVO::from_result(&user).resp();
+        RespVO::from_result(&user).resp()
     } else {
         session.set::<usize>("failure_count", failure_count + 1).unwrap();
-        return RespVO::<u64>::from_error_info("", "用户名称或密码错误").resp();
-    }
+        RespVO::<u64>::from_error_info("", "用户名称或密码错误").resp()
+    };
 }
 
+//退出登录
 #[get("/logout")]
 pub async fn logout(hb: web::Data<Handlebars<'_>>, session: Session) -> HttpResponse {
     session.remove("user_id");
@@ -75,3 +77,4 @@ pub async fn logout(hb: web::Data<Handlebars<'_>>, session: Session) -> HttpResp
     let body = hb.render("login", &data).unwrap();
     HttpResponse::Ok().body(body)
 }
+

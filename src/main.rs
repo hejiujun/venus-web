@@ -30,6 +30,7 @@ use config::SERVER_URL;
 use dao::RB;
 
 
+
 #[actix_web::main]
 async fn main() -> io::Result<()> {
     //日志追加器
@@ -53,13 +54,14 @@ async fn main() -> io::Result<()> {
             .service(index_controller::index)
             .service(user_controller::page)
             .service(auth_controller::login_html)
-            .service(auth_controller::login)
+            .service(auth_controller::login_in)
             .service(auth_controller::logout)
     })
         .bind(SERVER_URL)?
         .run()
         .await
 }
+
 
 
 

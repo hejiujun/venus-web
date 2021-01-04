@@ -3,6 +3,7 @@ use handlebars::Handlebars;
 use crate::service::user_service;
 use crate::dto::{UserPageDTO,RespVO};
 use actix_web::web::Json;
+use crate::domain::SysUser;
 
 #[post("/user")]
 pub async fn page(arg:web::Json<UserPageDTO>) -> HttpResponse{
@@ -37,4 +38,8 @@ pub async fn page(arg:web::Json<UserPageDTO>) -> HttpResponse{
     HttpResponse::Ok().body(body)*/
 
 }
+
+/*pub async fn save(arg:web::Json<SysUser>)-> HttpResponse{
+
+}*/
 

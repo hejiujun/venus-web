@@ -1,83 +1,49 @@
 <!DOCTYPE html>
-<html  lang="zh">
+<html lang="en">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-    <title>登录{{name}}系统</title>
-    <meta name="description" content="{{name}}后台管理框架">
-    <link href="/static/css/bootstrap.min.css" rel="stylesheet"/>
-    <link href="/static/css/font-awesome.min.css" rel="stylesheet"/>
-    <link href="/static/css/style.css" rel="stylesheet"/>
-    <link href="/static/css/login.min.css" rel="stylesheet"/>
-    <link href="/static/ruoyi/css/ry-ui.css" rel="stylesheet"/>
-    <!-- 360浏览器急速模式 -->
-    <meta name="renderer" content="webkit">
-    <!-- 避免IE使用兼容模式 -->
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <link rel="shortcut icon" href="/static/favicon.ico" />
-    <style type="text/css">label.error { position:inherit;  }</style>
-    <script>
-        if(window.top!==window.self){alert('未登录或登录超时。请重新登录');window.top.location=window.location};
-    </script>
+    <meta charset="UTF-8">
+    <title>Title</title>
 </head>
-<body class="signin">
-    <div class="signinpanel">
-        <div class="row">
-            <div class="col-sm-7">
-                <div class="signin-info">
-                    <div class="logopanel m-b">
-                        <h1><img alt="[ 金星 ]" src="/static/ruoyi.png" ></h1>
-                    </div>
-                    <div class="m-b"></div>
-                    <h4>欢迎使用 <strong>{{name}} 后台管理系统</strong></h4>
-                    <ul class="m-b">
-                        <li><i class="fa fa-arrow-circle-o-right m-r-xs"></i> RUST</li>
-                        <li><i class="fa fa-arrow-circle-o-right m-r-xs"></i> RBATIS</li>
-                        <li><i class="fa fa-arrow-circle-o-right m-r-xs"></i> ACTIX-WEB</li>
-                        <li><i class="fa fa-arrow-circle-o-right m-r-xs"></i> HANDLEBARS</li>
-                    </ul>
-                    <strong>还没有账号？ <a href="/register">立即注册&raquo;</a></strong>
-                </div>
-            </div>
-            <div class="col-sm-5">
-                <form id="signupForm" autocomplete="off">
-                    <h4 class="no-margins">登录：</h4>
-                    <p class="m-t-md">金星璀璨</p>
-                    <input type="text"     name="username" class="form-control uname"     placeholder="用户名" value="admin"    />
-                    <input type="password" name="password" class="form-control pword"     placeholder="密码"   value="admin123" />
-					<!--<div class="row m-t" th:if="${captchaEnabled==true}">
-						<div class="col-xs-6">
-						    <input type="text" name="validateCode" class="form-control code" placeholder="验证码" maxlength="5" />
-						</div>
-						<div class="col-xs-6">
-							<a href="javascript:void(0);" title="点击更换验证码">
-								<img th:src="@{captcha/captchaImage(type=${captchaType})}" class="imgcode" width="85%"/>
-							</a>
-						</div>
-					</div>-->
-                   <!-- <div class="checkbox-custom" th:classappend="${captchaEnabled==false} ? 'm-t'">
-				        <input type="checkbox" id="rememberme" name="rememberme"> <label for="rememberme">记住我</label>
-				    </div>-->
-                    <button class="btn btn-success btn-block" id="btnSubmit" data-loading="正在验证登录，请稍后...">登录</button>
-                </form>
-            </div>
-        </div>
-        <div class="signup-footer">
-            <div class="pull-left">
-                Copyright © 2018-2021 venus All Rights Reserved. <br>
-            </div>
-        </div>
-    </div>
-<!--<script th:inline="javascript"> var ctx = [[@{/}]]; var captchaType = [[${captchaType}]]; </script>-->
-<!-- 全局js -->
+<body>
 <script src="/static/js/jquery.min.js"></script>
-<script src="/static/js/bootstrap.min.js"></script>
-<!-- 验证插件 -->
-<script src="/static/ajax/libs/validate/jquery.validate.min.js"></script>
-<script src="/static/ajax/libs/validate/messages_zh.min.js"></script>
-<script src="/static/ajax/libs/layer/layer.min.js"></script>
-<script src="/static/ajax/libs/blockUI/jquery.blockUI.js"></script>
-<script src="/static/ruoyi/js/ry-ui.js"></script>
-<script src="/static/ruoyi/login.js"></script>
+<script type="text/javascript">
+    function loginBy(){
+        var username = $("input[name='username']").val();
+        var password = $("input[name='password']").val();
+        var loginUser={
+            login_name: username,
+            password: password
+        }
+        var jsondata=JSON.stringify(loginUser);
+        console.log(jsondata);
+        $.ajax({
+            type:"POST",
+            url:"/login_in",
+            // dataType: "json",
+            //data:{},
+            //dataType:"json",
+            //contentType: "application/x-www-form-urlencoded",
+            data: jsondata,
+            //data: edit_form.serializeArray(),
+            headers: {"content-type": "application/json"},
+            success:function(data){
+                console.log(data);
+            },
+            error: function(e){
+                console.error(e);
+            }
+
+        });
+    }
+</script>
+<div>
+    <div id="f">
+    <input type="text"     name="username"     placeholder="用户名" value="admin"    />
+    <input type="password" name="password"     placeholder="密码"   value="123456" />
+        <button onclick="loginBy()">登录</button>
+    </div>
+</div>
+
+
 </body>
 </html>

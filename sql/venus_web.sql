@@ -4,8 +4,8 @@
 -- ----------------------------
 drop table if exists sys_dept;
 create table sys_dept (
-                          dept_id 			bigint(20) 		not null auto_increment    comment '部门id',
-                          parent_id 		bigint(20) 		default 0 			       comment '父部门id',
+                          dept_id 			varchar(32) 		not null auto_increment    comment '部门id',
+                          parent_id 		varchar(32) 		default 0 			       comment '父部门id',
                           ancestors 		varchar(50)     default '' 			       comment '祖级列表',
                           dept_name 		varchar(30) 	default '' 				   comment '部门名称',
                           order_num 		int(4) 			default 0 			       comment '显示顺序',
@@ -27,8 +27,8 @@ create table sys_dept (
 -- ----------------------------
 drop table if exists sys_user;
 create table sys_user (
-                          user_id 			bigint(20) 		not null auto_increment    comment '用户ID',
-                          dept_id 			bigint(20) 		default null			   comment '部门ID',
+                          user_id 			varchar(32) 		not null     comment '用户ID',
+                          dept_id 			varchar(32) 		default ''			   comment '部门ID',
                           login_name 		varchar(30) 	not null 				   comment '登录账号',
                           user_name 		varchar(30) 	not null 				   comment '用户昵称',
                           user_type 		varchar(2) 	    default '00' 		       comment '用户类型（00系统用户）',
@@ -48,8 +48,10 @@ create table sys_user (
                           update_time       datetime                                   comment '更新时间',
                           remark 		    text			   comment '备注',
                           primary key (user_id)
-) engine=innodb auto_increment=100 comment = '用户信息表';
+) engine=innodb comment = '用户信息表';
 
+insert into sys_user values('1',  '103', 'admin', '金星', '00', 'venus@163.com', '15888888888', '1', '', '7cf2918cc1225f9eaf121b4702a71fa6', '111111', '0', '0', '127.0.0.1', '2018-03-16 11-33-00', 'admin', '2018-03-16 11-33-00', 'venus', '2018-03-16 11-33-00', '管理员');
+insert into sys_user values('2',  '105', 'venus',    '金星', '00', 'venus@qq.com',  '15666666666', '1', '', '7cf2918cc1225f9eaf121b4702a71fa6', '222222', '0', '0', '127.0.0.1', '2018-03-16 11-33-00', 'admin', '2018-03-16 11-33-00', 'venus', '2018-03-16 11-33-00', '测试员');
 
 
 -- ----------------------------
