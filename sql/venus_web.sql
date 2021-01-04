@@ -4,8 +4,8 @@
 -- ----------------------------
 drop table if exists sys_dept;
 create table sys_dept (
-                          dept_id 			bigint(20) 		not null auto_increment    comment '部门id',
-                          parent_id 		bigint(20) 		default 0 			       comment '父部门id',
+                          dept_id 			varchar(32) 		not null     comment '部门id',
+                          parent_id 		varchar(32) 		default '' 			       comment '父部门id',
                           ancestors 		varchar(50)     default '' 			       comment '祖级列表',
                           dept_name 		varchar(30) 	default '' 				   comment '部门名称',
                           order_num 		int(4) 			default 0 			       comment '显示顺序',
@@ -19,7 +19,7 @@ create table sys_dept (
                           update_by         varchar(64)     default ''                 comment '更新者',
                           update_time       datetime                                   comment '更新时间',
                           primary key (dept_id)
-) engine=innodb auto_increment=200 comment = '部门表';
+) engine=innodb comment = '部门表';
 
 
 -- ----------------------------
@@ -27,8 +27,8 @@ create table sys_dept (
 -- ----------------------------
 drop table if exists sys_user;
 create table sys_user (
-                          user_id 			bigint(20) 		not null auto_increment    comment '用户ID',
-                          dept_id 			bigint(20) 		default null			   comment '部门ID',
+                          user_id 			varchar(32) 		not null     comment '用户ID',
+                          dept_id 			varchar(32) 		default ''			   comment '部门ID',
                           login_name 		varchar(30) 	not null 				   comment '登录账号',
                           user_name 		varchar(30) 	not null 				   comment '用户昵称',
                           user_type 		varchar(2) 	    default '00' 		       comment '用户类型（00系统用户）',
@@ -48,7 +48,7 @@ create table sys_user (
                           update_time       datetime                                   comment '更新时间',
                           remark 		    text			   comment '备注',
                           primary key (user_id)
-) engine=innodb auto_increment=100 comment = '用户信息表';
+) engine=innodb comment = '用户信息表';
 
 
 
@@ -58,7 +58,7 @@ create table sys_user (
 drop table if exists sys_post;
 create table sys_post
 (
-    post_id       bigint(20)         not null auto_increment    comment '岗位ID',
+    post_id       varchar(32)         not null     comment '岗位ID',
     post_code     varchar(64)     not null                   comment '岗位编码',
     post_name     varchar(50)     not null                   comment '岗位名称',
     post_sort     int(4)          not null                   comment '显示顺序',
@@ -78,7 +78,7 @@ create table sys_post
 -- ----------------------------
 drop table if exists sys_role;
 create table sys_role (
-                          role_id 			bigint(20) 		not null auto_increment    comment '角色ID',
+                          role_id 			varchar(32)		not null     comment '角色ID',
                           role_name 		varchar(30) 	not null 				   comment '角色名称',
                           role_key 		    varchar(100) 	not null 				   comment '角色权限字符串',
                           role_sort         int(4)          not null                   comment '显示顺序',
@@ -91,7 +91,7 @@ create table sys_role (
                           update_time 		datetime                                   comment '更新时间',
                           remark 			text  				   comment '备注',
                           primary key (role_id)
-) engine=innodb auto_increment=100 comment = '角色信息表';
+) engine=innodb  comment = '角色信息表';
 
 
 
@@ -100,9 +100,9 @@ create table sys_role (
 -- ----------------------------
 drop table if exists sys_menu;
 create table sys_menu (
-                          menu_id 			bigint(20) 		not null auto_increment    comment '菜单ID',
+                          menu_id 			varchar(32) 		not null     comment '菜单ID',
                           menu_name 		varchar(50) 	not null 				   comment '菜单名称',
-                          parent_id 		bigint(20) 		default 0 			       comment '父菜单ID',
+                          parent_id 		varchar(32) 		default 0 			       comment '父菜单ID',
                           order_num 		int(4) 			default 0 			       comment '显示顺序',
                           url 				varchar(200) 	default '#'				   comment '请求地址',
                           target            varchar(20)     default ''                 comment '打开方式（menuItem页签 menuBlank新窗口）',
@@ -116,7 +116,7 @@ create table sys_menu (
                           update_time 		datetime                                   comment '更新时间',
                           remark 			text 				   comment '备注',
                           primary key (menu_id)
-) engine=innodb auto_increment=2000 comment = '菜单权限表';
+) engine=innodb comment = '菜单权限表';
 
 
 -- ----------------------------
@@ -124,8 +124,8 @@ create table sys_menu (
 -- ----------------------------
 drop table if exists sys_user_role;
 create table sys_user_role (
-                               user_id 	bigint(20) not null comment '用户ID',
-                               role_id 	bigint(20) not null comment '角色ID',
+                               user_id 	varchar(32) not null comment '用户ID',
+                               role_id 	varchar(32) not null comment '角色ID',
                                primary key(user_id, role_id)
 ) engine=innodb comment = '用户和角色关联表';
 
@@ -136,8 +136,8 @@ create table sys_user_role (
 -- ----------------------------
 drop table if exists sys_role_menu;
 create table sys_role_menu (
-                               role_id 	bigint(20) not null comment '角色ID',
-                               menu_id 	bigint(20) not null comment '菜单ID',
+                               role_id 	varchar(32) not null comment '角色ID',
+                               menu_id 	varchar(32) not null comment '菜单ID',
                                primary key(role_id, menu_id)
 ) engine=innodb comment = '角色和菜单关联表';
 
@@ -147,8 +147,8 @@ create table sys_role_menu (
 -- ----------------------------
 drop table if exists sys_role_dept;
 create table sys_role_dept (
-                               role_id 	bigint(20) not null comment '角色ID',
-                               dept_id 	bigint(20) not null comment '部门ID',
+                               role_id 	varchar(32) not null comment '角色ID',
+                               dept_id 	varchar(32) not null comment '部门ID',
                                primary key(role_id, dept_id)
 ) engine=innodb comment = '角色和部门关联表';
 
@@ -159,8 +159,8 @@ create table sys_role_dept (
 drop table if exists sys_user_post;
 create table sys_user_post
 (
-    user_id bigint(20) not null comment '用户ID',
-    post_id bigint(20) not null comment '岗位ID',
+    user_id varchar(32) not null comment '用户ID',
+    post_id varchar(32) not null comment '岗位ID',
     primary key (user_id, post_id)
 ) engine=innodb comment = '用户与岗位关联表';
 
@@ -172,7 +172,7 @@ create table sys_user_post
 -- ----------------------------
 drop table if exists sys_oper_log;
 create table sys_oper_log (
-                              oper_id 			bigint(20) 		not null auto_increment    comment '日志主键',
+                              oper_id 			varchar(32) 		not null     comment '日志主键',
                               title             varchar(50)     default ''                 comment '模块标题',
                               business_type     int(2)          default 0                  comment '业务类型（0其它 1新增 2修改 3删除）',
                               method            varchar(100)    default ''                 comment '方法名称',
@@ -187,7 +187,7 @@ create table sys_oper_log (
                               error_msg 		text 				   comment '错误消息',
                               oper_time 		datetime                                   comment '操作时间',
                               primary key (oper_id)
-) engine=innodb auto_increment=100 comment = '操作日志记录';
+) engine=innodb  comment = '操作日志记录';
 
 
 -- ----------------------------
@@ -196,7 +196,7 @@ create table sys_oper_log (
 drop table if exists sys_dict_type;
 create table sys_dict_type
 (
-    dict_id          bigint(20) 		 not null auto_increment    comment '字典主键',
+    dict_id          varchar(32) 		 not null     comment '字典主键',
     dict_name        varchar(100)    default ''                 comment '字典名称',
     dict_type        varchar(100)    default ''                 comment '字典类型',
     status 			 char(1) 		 default '0'			    comment '状态（0正常 1停用）',
@@ -207,7 +207,7 @@ create table sys_dict_type
     remark 	         text 				comment '备注',
     primary key (dict_id),
     unique (dict_type)
-) engine=innodb auto_increment=100 comment = '字典类型表';
+) engine=innodb  comment = '字典类型表';
 
 
 
@@ -217,7 +217,7 @@ create table sys_dict_type
 drop table if exists sys_dict_data;
 create table sys_dict_data
 (
-    dict_code        bigint(20) 		 not null auto_increment    comment '字典编码',
+    dict_code        varchar(32) 		 not null    comment '字典编码',
     dict_sort        int(4)          default 0                  comment '字典排序',
     dict_label       varchar(100)    default ''                 comment '字典标签',
     dict_value       varchar(100)    default ''                 comment '字典键值',
@@ -232,35 +232,8 @@ create table sys_dict_data
     update_time      datetime                                   comment '更新时间',
     remark 	         text 				comment '备注',
     primary key (dict_code)
-) engine=innodb auto_increment=100 comment = '字典数据表';
+) engine=innodb  comment = '字典数据表';
 
-
-insert into sys_dict_data values(1,  1,  '男',       '0',  'sys_user_sex',        '',   '',        'Y', '0', 'admin', '2018-03-16 11-33-00', 'ry', '2018-03-16 11-33-00', '性别男');
-insert into sys_dict_data values(2,  2,  '女',       '1',  'sys_user_sex',        '',   '',        'N', '0', 'admin', '2018-03-16 11-33-00', 'ry', '2018-03-16 11-33-00', '性别女');
-insert into sys_dict_data values(3,  3,  '未知',     '2',  'sys_user_sex',        '',   '',        'N', '0', 'admin', '2018-03-16 11-33-00', 'ry', '2018-03-16 11-33-00', '性别未知');
-insert into sys_dict_data values(4,  1,  '显示',     '0',  'sys_show_hide',       '',   'primary', 'Y', '0', 'admin', '2018-03-16 11-33-00', 'ry', '2018-03-16 11-33-00', '显示菜单');
-insert into sys_dict_data values(5,  2,  '隐藏',     '1',  'sys_show_hide',       '',   'danger',  'N', '0', 'admin', '2018-03-16 11-33-00', 'ry', '2018-03-16 11-33-00', '隐藏菜单');
-insert into sys_dict_data values(6,  1,  '正常',     '0',  'sys_normal_disable',  '',   'primary', 'Y', '0', 'admin', '2018-03-16 11-33-00', 'ry', '2018-03-16 11-33-00', '正常状态');
-insert into sys_dict_data values(7,  2,  '停用',     '1',  'sys_normal_disable',  '',   'danger',  'N', '0', 'admin', '2018-03-16 11-33-00', 'ry', '2018-03-16 11-33-00', '停用状态');
-insert into sys_dict_data values(8,  1,  '正常',     '0',  'sys_job_status',      '',   'primary', 'Y', '0', 'admin', '2018-03-16 11-33-00', 'ry', '2018-03-16 11-33-00', '正常状态');
-insert into sys_dict_data values(9,  2,  '暂停',     '1',  'sys_job_status',      '',   'danger',  'N', '0', 'admin', '2018-03-16 11-33-00', 'ry', '2018-03-16 11-33-00', '停用状态');
-insert into sys_dict_data values(10, 1,  '是',       'Y',  'sys_yes_no',          '',   'primary', 'Y', '0', 'admin', '2018-03-16 11-33-00', 'ry', '2018-03-16 11-33-00', '系统默认是');
-insert into sys_dict_data values(11, 2,  '否',       'N',  'sys_yes_no',          '',   'danger',  'N', '0', 'admin', '2018-03-16 11-33-00', 'ry', '2018-03-16 11-33-00', '系统默认否');
-insert into sys_dict_data values(12, 1,  '通知',     '1',  'sys_notice_type',     '',   'warning', 'Y', '0', 'admin', '2018-03-16 11-33-00', 'ry', '2018-03-16 11-33-00', '通知');
-insert into sys_dict_data values(13, 2,  '公告',     '2',  'sys_notice_type',     '',   'success', 'N', '0', 'admin', '2018-03-16 11-33-00', 'ry', '2018-03-16 11-33-00', '公告');
-insert into sys_dict_data values(14, 1,  '正常',     '0',  'sys_notice_status',   '',   'primary', 'Y', '0', 'admin', '2018-03-16 11-33-00', 'ry', '2018-03-16 11-33-00', '正常状态');
-insert into sys_dict_data values(15, 2,  '关闭',     '1',  'sys_notice_status',   '',   'danger',  'N', '0', 'admin', '2018-03-16 11-33-00', 'ry', '2018-03-16 11-33-00', '关闭状态');
-insert into sys_dict_data values(16, 1,  '新增',     '1',  'sys_oper_type',       '',   'info',    'N', '0', 'admin', '2018-03-16 11-33-00', 'ry', '2018-03-16 11-33-00', '新增操作');
-insert into sys_dict_data values(17, 2,  '修改',     '2',  'sys_oper_type',       '',   'info',    'N', '0', 'admin', '2018-03-16 11-33-00', 'ry', '2018-03-16 11-33-00', '修改操作');
-insert into sys_dict_data values(18, 3,  '删除',     '3',  'sys_oper_type',       '',   'danger',  'N', '0', 'admin', '2018-03-16 11-33-00', 'ry', '2018-03-16 11-33-00', '删除操作');
-insert into sys_dict_data values(19, 4,  '授权',     '4',  'sys_oper_type',       '',   'primary', 'N', '0', 'admin', '2018-03-16 11-33-00', 'ry', '2018-03-16 11-33-00', '授权操作');
-insert into sys_dict_data values(20, 5,  '导出',     '5',  'sys_oper_type',       '',   'warning', 'N', '0', 'admin', '2018-03-16 11-33-00', 'ry', '2018-03-16 11-33-00', '导出操作');
-insert into sys_dict_data values(21, 6,  '导入',     '6',  'sys_oper_type',       '',   'warning', 'N', '0', 'admin', '2018-03-16 11-33-00', 'ry', '2018-03-16 11-33-00', '导入操作');
-insert into sys_dict_data values(22, 7,  '强退',     '7',  'sys_oper_type',       '',   'danger',  'N', '0', 'admin', '2018-03-16 11-33-00', 'ry', '2018-03-16 11-33-00', '强退操作');
-insert into sys_dict_data values(23, 8,  '生成代码', '8',  'sys_oper_type',       '',   'warning', 'N', '0', 'admin', '2018-03-16 11-33-00', 'ry', '2018-03-16 11-33-00', '生成操作');
-insert into sys_dict_data values(24, 9,  '清空数据', '9',  'sys_oper_type',       '',   'danger',  'N', '0', 'admin', '2018-03-16 11-33-00', 'ry', '2018-03-16 11-33-00', '清空操作');
-insert into sys_dict_data values(25, 1,  '成功',     '0',  'sys_common_status',   '',   'primary', 'N', '0', 'admin', '2018-03-16 11-33-00', 'ry', '2018-03-16 11-33-00', '正常状态');
-insert into sys_dict_data values(26, 2,  '失败',     '1',  'sys_common_status',   '',   'danger',  'N', '0', 'admin', '2018-03-16 11-33-00', 'ry', '2018-03-16 11-33-00', '停用状态');
 
 
 -- ----------------------------
@@ -268,7 +241,7 @@ insert into sys_dict_data values(26, 2,  '失败',     '1',  'sys_common_status'
 -- ----------------------------
 drop table if exists sys_config;
 create table sys_config (
-                            config_id 		     int(5) 	     not null auto_increment    comment '参数主键',
+                            config_id 		     varchar(32) 	     not null     comment '参数主键',
                             config_name        varchar(100)  default ''                 comment '参数名称',
                             config_key         varchar(100)  default ''                 comment '参数键名',
                             config_value       varchar(100)  default ''                 comment '参数键值',
@@ -279,7 +252,7 @@ create table sys_config (
                             update_time        datetime                                 comment '更新时间',
                             remark 	           text 				comment '备注',
                             primary key (config_id)
-) engine=innodb auto_increment=100 comment = '参数配置表';
+) engine=innodb  comment = '参数配置表';
 
 
 
@@ -288,7 +261,7 @@ create table sys_config (
 -- ----------------------------
 drop table if exists sys_logininfor;
 create table sys_logininfor (
-                                info_id 		   bigint(20) 	   not null auto_increment   comment '访问ID',
+                                info_id 		   varchar(32) 	   not null    comment '访问ID',
                                 login_name 	   varchar(50)   default '' 			     comment '登录账号',
                                 ipaddr 		     varchar(50)   default '' 			     comment '登录IP地址',
                                 login_location varchar(255)  default ''                comment '登录地点',
@@ -298,7 +271,7 @@ create table sys_logininfor (
                                 msg      		 text 			     comment '提示消息',
                                 login_time 	 datetime                                comment '访问时间',
                                 primary key (info_id)
-) engine=innodb auto_increment=100 comment = '系统访问记录';
+) engine=innodb  comment = '系统访问记录';
 
 
 -- ----------------------------
@@ -326,7 +299,7 @@ create table sys_user_online (
 -- ----------------------------
 drop table if exists sys_job;
 create table sys_job (
-                         job_id 		      bigint(20) 	    not null auto_increment    comment '任务ID',
+                         job_id 		      varchar(32) 	    not null     comment '任务ID',
                          job_name            varchar(64)   default ''                 comment '任务名称',
                          job_group           varchar(64)   default ''                 comment '任务组名',
                          method_name         varchar(500)  default ''                 comment '任务方法',
@@ -341,7 +314,7 @@ create table sys_job (
                          update_time         datetime                                 comment '更新时间',
                          remark              text                 comment '备注信息',
                          primary key (job_id, job_name, job_group)
-) engine=innodb auto_increment=100 comment = '定时任务调度表';
+) engine=innodb  comment = '定时任务调度表';
 
 
 
@@ -350,7 +323,7 @@ create table sys_job (
 -- ----------------------------
 drop table if exists sys_job_log;
 create table sys_job_log (
-                             job_log_id          bigint(20) 	    not null auto_increment    comment '任务日志ID',
+                             job_log_id          varchar(32) 	    not null     comment '任务日志ID',
                              job_name            varchar(64)   not null                   comment '任务名称',
                              job_group           varchar(64)   not null                   comment '任务组名',
                              method_name         varchar(500)                             comment '任务方法',
@@ -368,7 +341,7 @@ create table sys_job_log (
 -- ----------------------------
 drop table if exists sys_notice;
 create table sys_notice (
-                            notice_id 		int(4) 		    not null auto_increment    comment '公告ID',
+                            notice_id 		varchar(32) 		    not null     comment '公告ID',
                             notice_title 		varchar(50) 	not null 				   comment '公告标题',
                             notice_type 		char(1) 	    not null 			       comment '公告类型（1通知 2公告）',
                             notice_content    text    not null                   comment '公告内容',
@@ -379,5 +352,5 @@ create table sys_notice (
                             update_time 		datetime                                   comment '更新时间',
                             remark 			text 				   comment '备注',
                             primary key (notice_id)
-) engine=innodb auto_increment=10 comment = '通知公告表';
+) engine=innodb  comment = '通知公告表';
 
