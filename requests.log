@@ -56,3 +56,6 @@
 2021-01-04 13:30:59.410593400 +08:00 INFO rbatis::plugin::log - [rbatis] [] Query ==> SELECT user_id,dept_id,login_name,user_name,user_type,email,phonenumber,sex,avatar,password,salt,status,del_flag,login_ip,login_date,create_by,create_time,update_by,update_time,remark FROM sys_user WHERE del_flag = 0 AND login_name = ? LIMIT 0,10
                                                                 [rbatis] [] Args  ==> ["admin"]
 2021-01-04 13:30:59.417247200 +08:00 INFO rbatis::plugin::log - [rbatis] [] ReturnRows <== 1
+2021-01-04 14:24:31.129050100 +08:00 INFO actix_server::builder - Starting 8 workers
+2021-01-04 14:24:31.130045300 +08:00 INFO actix_server::builder - Starting "actix-web-service-127.0.0.1:8080" service on 127.0.0.1:8080
+2021-01-04 14:24:49.143351800 +08:00 INFO actix_server::builder - SIGINT received, exiting
