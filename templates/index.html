@@ -16,7 +16,6 @@
         }
         var jsondata=JSON.stringify(userPage);
         console.log(jsondata);
-        var edit_form = $("#edit_form");
         $.ajax({
             type:"POST",
             url:"/user",
@@ -29,6 +28,7 @@
             headers: {"content-type": "application/json"},
             success:function(data){
                 console.log(data);
+                $("#result").html(data);
             },
             error: function(e){
                 console.error(e);
@@ -36,13 +36,28 @@
 
         });
     }
+
+    function logout(){
+        location.href = '/logout';
+    }
 </script>
 <button onclick="queryUser()">点击查询用户</button>
-<div>{{data}}</div>
+<button onclick="logout()">登出</button>
+<div id="result"></div>
 <form id="edit_form">
     <input type="hidden" value="1" name="page" />
     <input type="hidden" value="10" name="size" />
     <input type="hidden" value="admin" name="login_name" />
 </form>
+
+<!-- 全局js -->
+<script src="/static/js/jquery.min.js"></script>
+<script src="/static/js/bootstrap.min.js"></script>
+<!-- 验证插件 -->
+<script src="/static/ajax/libs/validate/jquery.validate.min.js"></script>
+<script src="/static/ajax/libs/validate/messages_zh.min.js"></script>
+<script src="/static/ajax/libs/layer/layer.min.js"></script>
+<script src="/static/ajax/libs/blockUI/jquery.blockUI.js"></script>
+<script src="/static/ruoyi/js/ry-ui.js"></script>
 </body>
 </html>

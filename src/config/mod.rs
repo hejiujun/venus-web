@@ -1,5 +1,7 @@
 //mysql 链接地址
 pub const MYSQL_URL: &'static str = "mysql://root:123456@localhost:3306/rust_test";
+//redis 连接地址
+pub const REDIS_URL:&'static str="redis://127.0.0.1:6379";
 //server 地址
 pub const SERVER_URL: &'static str = "127.0.0.1:8080";
 

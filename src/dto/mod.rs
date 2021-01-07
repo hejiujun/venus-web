@@ -17,6 +17,13 @@ pub struct UserPageDTO {
 pub struct LoginUser {
     pub login_name: Option<String>,
     pub password: Option<String>,
+    pub validate_code: Option<String>,
+}
+
+/// 验证码
+#[derive(Serialize, Deserialize, Clone, Debug)]
+pub struct CatpchaDTO {
+    pub account: Option<String>
 }
 
 ///请求返回
